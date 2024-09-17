@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.RangeSlider?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.ContractController">
+   <children>
+      <Pane layoutX="49.0" layoutY="128.0">
+         <children>
+            <Label text="Фильтр">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox depthTest="DISABLE" layoutY="44.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#selectActionNewContract" text="Новая запись">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#saveContractData" style="-fx-background-color: #45ff6d;" text="Сохранить">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteContractData" style="-fx-background-color: #fa5555;" text="Удалить">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Label text="Текущее действие: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="actionLabel" text="-">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </Pane>
+      <SplitPane dividerPositions="0.5750412314458494" layoutX="49.0" layoutY="216.0" prefHeight="746.0" prefWidth="1821.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="table" onMouseClicked="#selectContract" prefHeight="744.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn fx:id="idTable" minWidth="-1.0" prefWidth="-1.0" text="ID" />
+                        <TableColumn fx:id="cardIdTable" prefWidth="75.0" text="ID карты" />
+                        <TableColumn fx:id="personIdTable" prefWidth="75.0" text="Сотрудник" />
+                        <TableColumn fx:id="serviceIdTable" prefWidth="75.0" text="Услуга" />
+                        <TableColumn fx:id="timeStartTable" prefWidth="75.0" text="Начало приёма" />
+                        <TableColumn fx:id="timeFinishTable" prefWidth="75.0" text="Конец приёма" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="761.0">
+               <children>
+                  <TabPane prefHeight="439.0" prefWidth="770.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Сортировка">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="640.0">
+                                 <children>
+                                    <VBox layoutX="14.0" layoutY="14.0" prefHeight="382.0" prefWidth="742.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <ComboBox fx:id="personFilterComboBox" prefWidth="150.0" promptText="Сотрудник">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <DatePicker fx:id="dateFilterDatePicker" promptText="Дата работы">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </DatePicker>
+                                                <TextField fx:id="cardIdFilterTextField" promptText="ID карты">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#filterContract" text="Отфильтровать" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField fx:id="idFilterTextField" editable="false" promptText="ID пациента">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="secondNameFilterTextField" editable="false" promptText="Фамилия">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="firstNameFilterTextField" editable="false" promptText="Имя">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="familyFilterTextField" editable="false" promptText="Отчество">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField fx:id="birthDayFilterTextField" editable="false" promptText="Дата рождения">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="passSeriesFilterTextField" editable="false" promptText="Серия паспорта">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="passNumFilterTextField" editable="false" promptText="Номер паспорта">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Данные">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="640.0">
+                                 <children>
+                                    <VBox layoutX="14.0" layoutY="14.0" prefHeight="382.0" prefWidth="742.0">
+                                       <children>
+                                          <HBox>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <TextField fx:id="idEditTextField" promptText="ID карты">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <ComboBox fx:id="personEditComboBox" minWidth="150.0" promptText="Сотрудник">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <DatePicker fx:id="dateEditDatePicker" promptText="Дата работы" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <SearchableComboBox fx:id="serviceEditSearchableComboBox" promptText="Услуга" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <TextField fx:id="sumEditTextField" promptText="Стоимость">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="roomEditTextField" promptText="Кабинет">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="contractNumEditTextField" promptText="Номер договора">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <ComboBox fx:id="payTypeEditComboBox" prefWidth="150.0" promptText="Тип оплаты">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <CheckBox fx:id="statusEditCheckBox" mnemonicParsing="false" text="Статус">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets top="2.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <Label text="Часы приёма">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <RangeSlider fx:id="hourEditRangeSlider" highValue="19.0" lowValue="8.0" majorTickUnit="1.0" max="24.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                                          <Label text="Минуты приёма">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <RangeSlider fx:id="minuteEditRangeSlider" highValue="19.0" lowValue="8.0" majorTickUnit="5.0" max="60.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Label layoutX="49.0" layoutY="93.0" text="Визиты">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+      <fx:include fx:id="main" source="main.fxml" />
+</Pane>
